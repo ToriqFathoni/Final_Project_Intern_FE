@@ -11,6 +11,11 @@ const isLoggedIn = () => {
   return false;
 }
 
+const goLogout = () => {
+  localStorage.removeItem('user'); // Clear user data
+  window.location.reload();
+}
+
 if (localStorage.getItem('user')) { 
   userData = JSON.parse(localStorage.getItem('user')).data.list;
 }
@@ -36,9 +41,12 @@ export default function BookList({ onLoginClick, onSignUpClick, onMainMenuClick 
           {isLoggedIn && localStorage.getItem('user') ? (
             <>
               {/* Show Username */}
-              <div className="text-white hover:text-white/80">
+              <div className="text-white px-4 py-2 rounded">
                 {JSON.parse(localStorage.getItem('user')).data.username}
               </div>
+              <button onClick={goLogout} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                Logout
+              </button>
             </>
           ) : (
             <>

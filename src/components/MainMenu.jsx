@@ -14,6 +14,11 @@ const isLoggedIn = () => {
   return false;
 }
 
+const goLogout = () => {
+    localStorage.removeItem('user'); // Clear user data
+    window.location.reload();
+}
+
 // BestBooks Component
 const BooksData = [
   {
@@ -246,11 +251,20 @@ const Navbar = ({ onLoginClick, onSignUpClick, onBookListClick }) => {
               
             {/* Conditionally Display Login/Username/SignUp */}
             {isLoggedIn && localStorage.getItem('user') ? (
-              <li>
-                <div className="inline-block py-4 px-4 hover:text-cyan-400 duration-200">
-                  {JSON.parse(localStorage.getItem('user')).data.username}
-                </div>
-              </li>
+              <>
+                <li>
+                  <div className="inline-block py-4 px-4 hover:text-cyan-400 duration-200">
+                    {JSON.parse(localStorage.getItem('user')).data.username}
+                  </div>
+                </li>
+                <li>
+                  <button onClick={goLogout}
+                    className="inline-block py-4 px-4 hover:text-red-400 text-red-600 duration-200"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
             ) : (
               <>
                 {/* Show Login button when user is not logged in */}
