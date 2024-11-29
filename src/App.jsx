@@ -30,6 +30,8 @@ function App() {
     setShowMainMenu(false);
   };
 
+  // const handleUserLogin = () => {
+  // };
   return (
     <div>
       {showMainMenu ? (
@@ -44,9 +46,17 @@ function App() {
           onSignUpClick={handleSignUpClick} 
           onMainMenuClick={handleMainMenuClick}
         />
+      )},
+      {showLogin && (
+        <LoginForm 
+          onClose={handleCloseModal}
+          onLoginClick={handleUserLogin}
+        /> 
       )}
-      {showLogin && <LoginForm onClose={handleCloseModal} />}
-      {showSignUp && <SignUpForm onClose={handleCloseModal} />}
+      {showSignUp && (
+        <SignUpForm
+          onClose={handleCloseModal}
+        />)}
     </div>
   );
 }
