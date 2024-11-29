@@ -156,7 +156,7 @@ const Hero = () => {
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
               WELCOME LIONS!🦁
               <p className="bg-clip-text text-transparent bg-gradient-to-b from-blue-300 text-right text-sm to-blue-300 py-2">
-                TEAM LE MINERAL & BE
+                TEAM LE MINERAL & OREO
               </p>
             </h1>
             <p className="text-sm">
@@ -370,7 +370,7 @@ const SomeBooksData = [
   },
 ];
 
-const SomeBooks = () => {
+const SomeBooks = ( {onMasterListClick} ) => {
   return (
     <div className="py-10 object-center">
       <div className="container py-10">
@@ -402,7 +402,7 @@ const SomeBooks = () => {
             ))}
           </div>
           <div className="flex justify-center">
-            <button className="text-center mt-10 cursor-pointer bg-gradient-to-r from-blue-800 to-purple-400 hover:scale-105 duration-200 text-white py-1 px-5 rounded-full">
+            <button onClick={onMasterListClick} className="text-center mt-10 cursor-pointer bg-gradient-to-r from-blue-800 to-purple-400 hover:scale-105 duration-200 text-white py-1 px-5 rounded-full">
               View All Books
             </button>
           </div>
@@ -426,4 +426,3 @@ const MainMenu = ({ onLoginClick, onSignUpClick, onBookListClick }) => {
 };
 
 export default MainMenu;
-

@@ -26,9 +26,14 @@ export default function SignUpForm({ onClose }) {
     console.log('Submitted data:', formData); // Log form data
     const response = await axios.post("http://localhost:3000/users/signup",formData)
     if (response) {
-      // pindah ke book list user 
+      // pindah ke book list user
+      console.log("eh tutup dong")
+      error = false
+      onClose()
     } else {
-      // buat tulisan "sign up gagal", terserah di mana
+      // buat tulisan "login gagal", terserah di mana
+      console.log("gagal anjay")
+      error = true
     }
     setFormData({
       username: '',
