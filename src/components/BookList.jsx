@@ -2,6 +2,18 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+let userData = []
+
+const isLoggedIn = () => {
+  if (localStorage.getItem("user")){
+    return true;
+  }
+  return false;
+}
+
+if (localStorage.getItem('user')) { 
+  userData = JSON.parse(localStorage.getItem('user')).data.list;
+}
 
 export default function BookList({ onLoginClick, onSignUpClick, onMainMenuClick }) {
   const [toggleMyList, setToggleMyList] = useState(false);
@@ -13,18 +25,43 @@ export default function BookList({ onLoginClick, onSignUpClick, onMainMenuClick 
   };
   return (
     <>
-      {/* Navigation */}
-      <nav className="bg-[#000000] px-4 py-2">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="text-2xl font-bold text-white">MyBookList</div>
-          <div className="flex gap-4">
-            <button className="text-white hover:text-white/80">
-            </button>
-            <button className="bg-gray-200 text-blue-900 px-4 py-2 rounded" onClick={onLoginClick}>Login</button>
-            <button className="bg-purple-600 text-white px-4 py-2 rounded" onClick={onSignUpClick}>Sign Up</button>
-          </div>
+    {/* Navigation */}
+    <nav className="bg-[#000000] px-4 py-2">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <div className="text-2xl font-bold text-white">MyBookList</div>
+        
+        {/* Navigation Buttons */}
+        <div className="flex gap-4">
+          {isLoggedIn && localStorage.getItem('user') ? (
+            <>
+              {/* Show Username */}
+              <div className="text-white hover:text-white/80">
+                {JSON.parse(localStorage.getItem('user')).data.username}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Show Login Button */}
+              <button 
+                className="bg-gray-200 text-blue-900 px-4 py-2 rounded hover:bg-gray-300" 
+                onClick={onLoginClick}
+              >
+                Login
+              </button>
+              
+              {/* Show Sign Up Button */}
+              <button 
+                className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" 
+                onClick={onSignUpClick}
+              >
+                Sign Up
+              </button>
+            </>
+          )}
         </div>
-      </nav>
+      </div>
+    </nav>
 
       {/* Secondary Navigation */}
       <div className="bg-[#030712] border-t border-blue-400/30">
@@ -62,26 +99,7 @@ export default function BookList({ onLoginClick, onSignUpClick, onMainMenuClick 
 
         {/* Book List */}
         <div className="space-y-4">
-          {[
-            {
-              rank: 1,
-              title: "Harry Potter",
-              image: "https://perpussmpn1pontianak.sch.id/uploaded_files/sampul_koleksi/original/Monograf/304.png",
-              type: "Fiksi",
-              date: "Juni 1997",
-              members: "952,689 members",
-              score: 9.32
-            },
-            {
-              rank: 2,
-              title: "Laut Bercerita",
-              image: "https://inc.mizanstore.com/aassets/img/com_cart/produk/laut-bercerita-leila-s-chudori.jpg",
-              type: "Fiksi",
-              date: "2017",
-              members: "63,963 members",
-              score: 9.13
-            }
-          ].map((book) => (
+          {userData.map((book) => (
             <div key={book.rank} className="flex gap-4 bg-zinc-800 p-4 rounded">
               <div className="text-3xl font-bold text-white -500 w-12">{book.rank}</div>
               <img

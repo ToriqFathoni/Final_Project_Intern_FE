@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+var error = error
+
 export default function LoginForm({ onClose }) {
   const [formData, setFormData] = useState({
     username: '',
@@ -21,9 +23,19 @@ export default function LoginForm({ onClose }) {
     const response = await axios.post("http://localhost:3000/users/login",formData)
     if (response) {
       // pindah ke book list user 
+      console.log("eh tutup dong")
+      error = false
+      onClose()
     } else {
       // buat tulisan "login gagal", terserah di mana
+      console.log("gagal anjay")
+      error = true
     }
+    // Assuming the backend sends back a JSON object with account data
+    const accountData = response.data;
+    localStorage.setItem('user', JSON.stringify(accountData));
+    const user = JSON.parse(localStorage.getItem('user'));
+    // "user" sekarang merujuk pada akun user.
     setFormData({
       username: '',
       password: '',

@@ -7,6 +7,13 @@ import book5 from "../assets/Books/book5.png";
 import Logo from "../assets/NavbarLogo/homelogo.png";
 import { FaStar, FaInstagram, FaLinkedin, FaTwitter, FaCaretDown } from "react-icons/fa";
 
+const isLoggedIn = () => {
+  if (localStorage.getItem("user")){
+    return true;
+  }
+  return false;
+}
+
 // BestBooks Component
 const BooksData = [
   {
@@ -236,16 +243,37 @@ const Navbar = ({ onLoginClick, onSignUpClick, onBookListClick }) => {
                   Book List
                 </button>
               </li>
+              
+            {/* Conditionally Display Login/Username/SignUp */}
+            {isLoggedIn && localStorage.getItem('user') ? (
               <li>
-                <button onClick={onLoginClick} className="inline-block py-4 px-4 hover:text-cyan-400 duration-200">
-                  Login
-                </button>
+                <div className="inline-block py-4 px-4 hover:text-cyan-400 duration-200">
+                  {JSON.parse(localStorage.getItem('user')).data.username}
+                </div>
               </li>
-              <li>
-                <button onClick={onSignUpClick} className="inline-block py-4 px-4 hover:text-cyan-400 duration-200">
-                  Sign Up
-                </button>
-              </li>
+            ) : (
+              <>
+                {/* Show Login button when user is not logged in */}
+                <li>
+                  <button 
+                    onClick={onLoginClick} 
+                    className="inline-block py-4 px-4 hover:text-cyan-400 duration-200"
+                  >
+                    Login
+                  </button>
+                </li>
+                
+                {/* Show Sign Up button when user is not logged in */}
+                <li>
+                  <button 
+                    onClick={onSignUpClick} 
+                    className="inline-block py-4 px-4 hover:text-cyan-400 duration-200"
+                  >
+                    Sign Up
+                  </button>
+                </li>
+              </>
+            )}
             </ul>
           </div>
         </div>

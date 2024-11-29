@@ -50,7 +50,6 @@ function App() {
       {showLogin && (
         <LoginForm 
           onClose={handleCloseModal}
-          onLoginClick={handleUserLogin}
         /> 
       )}
       {showSignUp && (
